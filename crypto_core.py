@@ -176,7 +176,14 @@ def decrypt_details(password: str, token: str, verify_expiry: bool = True) -> di
 
         now = int(time.time())
 
-        if now > exp + CLOCK_SKEW:
+        try:
+            issued = int(issued_at)
+        except Exception as exc:
+            raise CryptoError("Invalid issue time") from exc
+
+        # A negative TTL is an explicit immediate-expiry request; do not let
+        # clock-skew tolerance turn that request into a valid message.
+        if exp < issued or now > exp + CLOCK_SKEW:
             raise CryptoError("This message has expired")
 
     return {

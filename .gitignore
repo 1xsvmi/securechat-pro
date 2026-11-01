@@ -10,3 +10,7 @@ Thumbs.db
 desktop.ini
 *.log
 *.tmp
+.test-venv/
+.pytest_cache/
+htmlcov/
+.coverage

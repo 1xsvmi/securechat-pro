@@ -34,6 +34,8 @@ It does not claim to protect against:
 
 ## Important Security Boundary
 
+SecureChat Pro encrypts message payloads using AES-256-GCM and a password-derived key. The TCP transport itself is not independently encrypted, and metadata such as IP addresses, ports, timing, and message sizes may still be observable by a network attacker.
+
 SecureChat Pro encrypts message payloads, not the entire network transport.
 
 The TCP connection used by `chat.py` is a plain socket transport. AES-256-GCM protects the message contents in automatic/manual encrypted workflows, but it does not hide:
